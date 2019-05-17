@@ -76,6 +76,13 @@ local function onToolActivated(toolId)
 			local gridStep = nil -- TODO: INTERFACE TO SELECT GRIDSET
 			if not gridStep then gridStep = 0 else gridStep = math.abs(gridStep) end
 			--inputGrid.text = tostring(gridStep)
+			local it = true
+				--might be where bug is?
+			coroutine.create(function()
+				engine.input:mouseLeftReleased(function())
+					it = false
+				end
+			end)
 			repeat 
 				if activeTool == id then
 					--Face camera on one Axis
@@ -128,7 +135,7 @@ local function onToolActivated(toolId)
 					end
 				end
 				wait()
-			until not engine.input:isMouseButtonDown(enums.mouseButton.left) or not activeTool == id
+			until not engine.input:isMouseButtonDown(enums.mouseButton.left) or not activeTool == id or it = false
 			delay(function() selectionController.selectable = false end, 1)
 			if activeTool == id then
 				gridGuideline.size = vector3(0,0,0)
