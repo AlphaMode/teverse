@@ -63,6 +63,7 @@ local function onToolActivated(toolId)
 			gridGuideline.rotation = handle.rotation
 			gridGuideline.position = handle.position
 			if component == "x" then
+				handle.position = vector3(1,0,0) + handle.position
 				gridGuideline.rotation =  gridGuideline.rotation * quaternion():setEuler(math.rad(-45),math.rad(-45),0)
 			end
 
